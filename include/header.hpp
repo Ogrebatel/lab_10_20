@@ -6,11 +6,13 @@
 #include <rocksdb/db.h>
 #include <rocksdb/slice.h>
 #include <rocksdb/options.h>
-#include "picosha2.h"
+#include <picosha2.h>
 #include <boost/log/trivial.hpp>
 #include <boost/log/utility/setup/file.hpp>
 #include <boost/log/utility/setup/common_attributes.hpp>
 #include <boost/log/utility/setup/console.hpp>
+#include <string>
+#include <vector>
 
 using rocksdb::DB;
 using rocksdb::DBOptions;
@@ -45,15 +47,11 @@ private:
 
     DB* input_db;
     DB* hash_db;
-
     std::string path_to_output_db;
-
     std::vector<ColumnFamilyDescriptor> column_families;
     std::vector<ColumnFamilyHandle*> handles;
     std::vector<std::string> list_column_families;
-
     std::vector<ColumnFamilyDescriptor> o_column_families;
     std::vector<ColumnFamilyHandle*> o_handles;
-
 };
 #endif // INCLUDE_HEADER_HPP_

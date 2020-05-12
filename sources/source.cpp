@@ -20,7 +20,7 @@ rocksdb_hash::rocksdb_hash(const std::string &_path_to_db,
 }
 
 void rocksdb_hash::print_db(){
-    for(unsigned i = 0; i < handles.size(); ++i)
+    for (unsigned i = 0; i < handles.size(); ++i)
     {
         BOOST_LOG_TRIVIAL(trace) << "Name: "
         << column_families[i].name << std::endl;
@@ -36,7 +36,7 @@ void rocksdb_hash::print_db(){
     }
 }
 void rocksdb_hash::print_output_db(){
-    for(unsigned i = 0; i < o_handles.size(); ++i)
+    for (unsigned i = 0; i < o_handles.size(); ++i)
     {
         BOOST_LOG_TRIVIAL(trace) << "Name: "
         << o_column_families[i].name << std::endl;
@@ -54,16 +54,16 @@ void rocksdb_hash::print_output_db(){
 void rocksdb_hash::create_hash_db(){
     open_output();
 
-    for(unsigned i = 0; i < handles.size(); ++i)
+    for (unsigned i = 0; i < handles.size(); ++i)
     {
         auto it = input_db->NewIterator(ReadOptions(), handles[i]);
         it->SeekToFirst();
-        while(it->Valid())
+        while (it->Valid())
         {
             std::string value;
-            hash_db->Put(WriteOptions(),o_handles[i],it->key().ToString(),
-                         picosha2::hash256_hex_string(
-                                 it->key().ToString() + it->value().ToString()));
+            hash_db->Put(WriteOptions(), o_handles[i], it->key().ToString(),
+                        picosha2::hash256_hex_string(
+                it->key().ToString() + it->value().ToString()));
             it->Next();
         }
     }
@@ -74,7 +74,7 @@ void rocksdb_hash::create_hash_db(){
     for (iter->SeekToFirst(); iter->Valid(); iter->Next()) {
         hash_db->Put(WriteOptions(), iter->key().ToString(),
                      picosha2::hash256_hex_string(
-                             iter->key().ToString() + iter->value().ToString()));
+                     iter->key().ToString() + iter->value().ToString()));
     }
 }
 
