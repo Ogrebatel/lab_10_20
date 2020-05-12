@@ -27,6 +27,10 @@ string(APPEND CMAKE_CXX_FLAGS " -Wshadow -Wnon-virtual-dtor")
 
 hunter_add_package(GTest)
 find_package(GTest CONFIG REQUIRED)
+hunter_add_package(Boost COMPONENTS log program_options)
+find_package(Boost CONFIG REQUIRED log program_options)
+hunter_add_package(rocksdb)
+find_package(RocksDB CONFIG REQUIRED)
 
 # TODO: change template word to project name and delete this comment
 add_library(template STATIC
@@ -47,6 +51,7 @@ target_include_directories(tests
 )
 # TODO: change template word to project name and delete this comment
 target_link_libraries(tests GTest::main template)
+target_link_libraries(template Boost::log gumbo::gumbo Boost::program_options RocksDB::rocksdb)
 
 enable_testing()
 add_test(NAME unit_tests COMMAND tests) 
