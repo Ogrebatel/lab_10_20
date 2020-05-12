@@ -51,7 +51,7 @@ target_include_directories(tests
 )
 # TODO: change template word to project name and delete this comment
 target_link_libraries(tests GTest::main template)
-target_link_libraries(template Boost::log gumbo::gumbo Boost::program_options RocksDB::rocksdb)
+target_link_libraries(template Boost::log Boost::program_options RocksDB::rocksdb)
 
 enable_testing()
 add_test(NAME unit_tests COMMAND tests) 
